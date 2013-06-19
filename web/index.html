@@ -1,0 +1,31 @@
+<!doctype html>
+<html ng-app="optionCards">
+  <head>
+    <meta charset="utf-8" />
+    <title>Option Cards</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, target-densitydpi=device-dpi">
+    <link rel="stylesheet" href="/lib/jquery.mobile.css"/>
+    <link rel="stylesheet" href="/css/optionCards.css"/>
+    <script src="/lib/jquery.js"></script>
+    <script src="/lib/jquery.mobile.js"></script>
+    <script src="/lib/angular.js"></script>
+    <script src="/lib/jquery-mobile-angular-adapter.js"></script>
+    <script src="/js/optionCards.js"></script>
+    <script src="/js/controllers.js"></script>
+    <script src="/js/filters.js"></script>
+  </head>
+  <body>
+    <div id="home" data-role="page" ng-controller="DeckListCtrl">
+      <div data-role="header">
+        <h1>Option Cards v0.0.1</h1>
+      </div>
+      <div data-role="content">
+        <a ng-repeat="deck in decks" data-role="button" data-iconpos="right" data-icon="arrow-r" href="/view.{{deck.id}}.html">{{deck.name}}</a>
+        <a data-role="button" data-iconpos="right" data-icon="plus" href="/addDeck.html" id="a-add-deck">Add deck</a>
+        <a data-role="button" data-iconpos="right" data-icon="gear" href="#settings">Settings</a>
+        <p>Version: Dev-D523-1500</p>
+      </div>
+    </div>
+
+  </body>
+</html>

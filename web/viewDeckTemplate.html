@@ -1,0 +1,88 @@
+<div data-role="page" id="viewDeck" data-add-back-btn="true" data-back-btn-text="Cancel" ng-controller="DeckViewCtrl">
+  <div data-theme="a" data-role="header">
+    <h3 ng-bind-template="Viewing: {{ deck.name }}">
+      View deck
+    </h3>
+  </div>
+  <div data-role="content">
+    <ul data-role="listview" data-divider-theme="b" data-inset="true">
+      <li data-role="list-divider" role="heading">
+        Deck view actions
+      </li>
+      <li data-theme="c" data-icon="plus">
+        <a id="viewd-link-addCard" ng-click="addCard()">
+          <h3>Add a card</h3>
+        </a>
+      </li>
+      <li data-theme="c" data-icon="arrow-d">
+        <a ng-click="toggleBmcFilter()" ng-model="filterBmc">
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" class="bmcanvas big-canvas show-toggle-table-{{ filterBmc.showBigCanvas }}">
+            <tr>
+              <td class="v{{ filterBmc.ticks['kp'] }}" colspan="2" ng-click="toggleBmcTick('kp', $event)" rowspan="2"></td>
+              <td class="v{{ filterBmc.ticks['ka'] }}" colspan="2" ng-click="toggleBmcTick('ka', $event)"></td>
+              <td class="v{{ filterBmc.ticks['vp'] }}" colspan="2" ng-click="toggleBmcTick('vp', $event)" rowspan="2"></td>
+              <td class="v{{ filterBmc.ticks['cl'] }}" colspan="2" ng-click="toggleBmcTick('cl', $event)"></td>
+              <td class="v{{ filterBmc.ticks['cu'] }}" colspan="2" ng-click="toggleBmcTick('cu', $event)" rowspan="2"></td>
+            </tr>
+            <tr>
+              <td class="v{{ filterBmc.ticks['kr'] }}" colspan="2" ng-click="toggleBmcTick('kr', $event)"></td>
+              <td class="v{{ filterBmc.ticks['dc'] }}" colspan="2" ng-click="toggleBmcTick('dc', $event)"></td>
+            </tr>
+            <tr>
+              <td class="v{{ filterBmc.ticks['rs'] }}" colspan="5" ng-click="toggleBmcTick('rs', $event)"></td>
+              <td class="v{{ filterBmc.ticks['cs'] }}" colspan="5" ng-click="toggleBmcTick('cs', $event)"></td>
+            </tr>
+          </table>
+          <table width="80" cellspacing="0" cellpadding="0" border="0" class="bmcanvas show-toggle-table-{{ !filterBmc.showBigCanvas }}">
+            <tr>
+              <td class="v{{ filterBmc.ticks['kp'] }}" colspan="2"rowspan="2"></td>
+              <td class="v{{ filterBmc.ticks['ka'] }}" colspan="2"></td>
+              <td class="v{{ filterBmc.ticks['vp'] }}" colspan="2"rowspan="2"></td>
+              <td class="v{{ filterBmc.ticks['cl'] }}" colspan="2"></td>
+              <td class="v{{ filterBmc.ticks['cu'] }}" colspan="2"rowspan="2"></td>
+            </tr>
+            <tr>
+              <td class="v{{ filterBmc.ticks['kr'] }}" colspan="2"></td>
+              <td class="v{{ filterBmc.ticks['dc'] }}" colspan="2"></td>
+            </tr>
+            <tr>
+              <td class="v{{ filterBmc.ticks['rs'] }}" colspan="5"></td>
+              <td class="v{{ filterBmc.ticks['cs'] }}" colspan="5"></td>
+            </tr>
+          </table>
+          <h3>Filter the cards by segment</h3>
+        </a>
+      </li>
+      <li data-theme="c" data-icon="plus">
+          <input name="viewd-filter" ng-model="filterString" placeholder="Search text">
+      </li>
+
+      <li data-role="list-divider" role="heading">
+        Cards in this deck
+      </li>
+      <li data-theme="c" ng-repeat="card in deck.cards | filter:filterString | ocBmcSegment:filterBmc.ticks">
+        <a href="/view.{{ deck.id }}.{{ card.id }}.html" data-transition="slide" class="viewd-link-viewc">
+          <table width="80" cellspacing="0" cellpadding="0" border="0" class="bmcanvas">
+            <tr>
+              <td class="v{{ card.ticks['kp'] }}" colspan="2"rowspan="2"></td>
+              <td class="v{{ card.ticks['ka'] }}" colspan="2"></td>
+              <td class="v{{ card.ticks['vp'] }}" colspan="2"rowspan="2"></td>
+              <td class="v{{ card.ticks['cl'] }}" colspan="2"></td>
+              <td class="v{{ card.ticks['cu'] }}" colspan="2"rowspan="2"></td>
+            </tr>
+            <tr>
+              <td class="v{{ card.ticks['kr'] }}" colspan="2"></td>
+              <td class="v{{ card.ticks['dc'] }}" colspan="2"></td>
+            </tr>
+            <tr>
+              <td class="v{{ card.ticks['rs'] }}" colspan="5"></td>
+              <td class="v{{ card.ticks['cs'] }}" colspan="5"></td>
+            </tr>
+          </table>
+          <h3>{{ card.content }}</h3>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
