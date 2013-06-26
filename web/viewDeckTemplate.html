@@ -61,7 +61,7 @@
         Cards in this deck
       </li>
       <li data-theme="c" ng-repeat="card in deck.cards | filter:filterString | ocBmcSegment:filterBmc.ticks">
-        <a href="/view.{{ deck.id }}.{{ card.id }}.html" data-transition="slide" class="viewd-link-viewc">
+        <a href="/viewCard.{{ deck.id }}.{{ card.id }}.html" data-transition="slide" class="viewd-link-viewc">
           <table width="80" cellspacing="0" cellpadding="0" border="0" class="bmcanvas">
             <tr>
               <td class="v{{ card.ticks['kp'] }}" colspan="2"rowspan="2"></td>

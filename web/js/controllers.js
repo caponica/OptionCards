@@ -3,11 +3,11 @@
 angular.module('optionCards', ['ocFilters'])
   .config(['$routeProvider', function($routeProvider) {
     $routeProvider
-      .when('/',                          { templateUrl: 'index.html' })
-      .when('/addDeck.html',              { templateUrl: 'addDeckTemplate.html' })
-      .when('/view.:deckId.html',         { templateUrl: 'viewDeckTemplate.html' })
-      .when('/addCard.:deckId.html',      { templateUrl: 'addCardTemplate.html' })
-      .when('/view.:deckId.:cardId.html', { templateUrl: 'viewCardTemplate.html' })
+      .when('/',                            { templateUrl: 'index.html' })
+      .when('/addDeck.html',                { templateUrl: 'addDeckTemplate.html' })
+      .when('/viewDeck.:deckId.html',       { templateUrl: 'viewDeckTemplate.html' })
+      .when('/addCard.:deckId.html',        { templateUrl: 'addCardTemplate.html' })
+      .when('/viewCard.:deckAndCardId.html',{ templateUrl: 'viewCardTemplate.html' })
       .otherwise({redirectTo: '/'})
     ;
   }])
