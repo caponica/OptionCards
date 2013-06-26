@@ -78,3 +78,29 @@ function CardAddCtrl($scope, $window, $routeParams) {
   }
 }
 
+function CardViewCtrl($scope, $window, $routeParams) {
+  if ($routeParams.deckAndCardId === undefined || $routeParams.deckAndCardId.indexOf('.')<0) {
+    capOc.ng.redirect404($window, 'Could not find the requested card');
+  }
+
+  var params = $routeParams.deckAndCardId.match(/[^.]+/g);
+  if (params.length !== 2) {
+    capOc.ng.redirect404($window, 'Could not find the requested card');
+  }
+
+  $scope.deck = capOc.ng.loadDeckOr404($window, params[0]);
+  $scope.editCard = capOc.ng.loadCardOr404($window, params[1], params[0]);
+
+  $scope.updateCard = function() {
+//    $scope.deck.cards.push($scope.editCard);
+    capOc.persistDecks();
+  }
+
+  $scope.toggleBmcTick = function(i, $event) {
+    $scope.editCard.ticks[i] = ($scope.editCard.ticks[i] + 1 ) % 3;
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+}
+
+
