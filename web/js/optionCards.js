@@ -64,13 +64,34 @@ capOc.Card.prototype = {
 // Angular helper methods
 capOc.ng = {
 /**
-  * Takes a deckId and tries to load the related Deck. If it cannot be found alert a message to the user and bounce to the homepage.
+  * Takes a deckId and tries to load the related Deck.
   */
-  loadDeckOr404: function(scope, window, deckId) {
+  loadDeckOr404: function(window, deckId) {
     if (deckId === undefined || capOc.decks[deckId] === undefined) {
-      alert('Could not find the deck.');
-      window.location.replace('/');
+      capOc.ng.redirect404(window, 'Could not find the deck.')
     }
-    scope.deck = capOc.decks[deckId];
+    return capOc.decks[deckId];
+  },
+/**
+  * Takes a cardId and deckId and tries to load the related Card.
+  */
+  loadCardOr404: function(window, cardId, deckId) {
+    if (deckId === undefined || capOc.decks[deckId] === undefined) {
+      capOc.ng.redirect404(window, 'Could not find the deck.')
+    }
+    if (cardId === undefined) {
+      capOc.ng.redirect404(window, 'Could not find the card.')
+    }
+    for (var i=0, j=capOc.decks[deckId].cards.length; i<j; ++i) {
+      if (capOc.decks[deckId].cards[i].id === cardId) {
+        return capOc.decks[deckId].cards[i];
+      }
+    }
+    capOc.ng.redirect404(window, 'Could not find the card.')
+  },
+  redirect404: function(window, message) {
+    if (message === undefined) message = 'Page not found';
+    alert(message);
+    window.location.replace('/');
   }
 }

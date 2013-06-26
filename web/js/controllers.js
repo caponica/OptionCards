@@ -34,7 +34,7 @@ function DeckAddCtrl($scope, $window) {
 }
 
 function DeckViewCtrl($scope, $window, $routeParams) {
-  capOc.ng.loadDeckOr404($scope, $window, $routeParams.deckId);
+  $scope.deck = capOc.ng.loadDeckOr404($window, $routeParams.deckId);
 
 //  console.log($scope.deck);
   $scope.filterString = null;
@@ -63,7 +63,7 @@ function DeckViewCtrl($scope, $window, $routeParams) {
 }
 
 function CardAddCtrl($scope, $window, $routeParams) {
-  capOc.ng.loadDeckOr404($scope, $window, $routeParams.deckId);
+  $scope.deck = capOc.ng.loadDeckOr404($window, $routeParams.deckId);
   $scope.editCard = new capOc.Card({ deckId: $scope.deck.id, content: '' });
 
   $scope.addCard = function() {
@@ -77,5 +77,4 @@ function CardAddCtrl($scope, $window, $routeParams) {
     $event.stopPropagation();
   }
 }
-
 
