@@ -60,3 +60,17 @@ capOc.Card = function (initObject) {
 }
 capOc.Card.prototype = {
 }
+
+// Angular helper methods
+capOc.ng = {
+/**
+  * Takes a deckId and tries to load the related Deck. If it cannot be found alert a message to the user and bounce to the homepage.
+  */
+  loadDeckOr404: function(scope, window, deckId) {
+    if (deckId === undefined || capOc.decks[deckId] === undefined) {
+      alert('Could not find the deck.');
+      window.location.replace('/');
+    }
+    scope.deck = capOc.decks[deckId];
+  }
+}

@@ -1,0 +1,37 @@
+<div data-role="page" id="addCard" data-add-back-btn="true" data-back-btn-text="Cancel" ng-controller="CardAddCtrl">
+  <div data-theme="a" data-role="header">
+    <h2>Add Card</h2>
+  </div>
+  <div data-role="content">
+    <form ng-submit="addCard()" data-ajax="false" action="/view.{{ deck.id }}.html">
+      <div data-role="fieldcontain">
+        <fieldset data-role="fieldcontain" style="height: 300px">
+          <table width="100%" cellspacing="0" cellpadding="0" border="0" class="bmcanvas big-canvas">
+            <tr>
+              <td class="v{{ editCard.ticks['kp'] }}" colspan="2" ng-click="toggleBmcTick('kp', $event)" rowspan="2"></td>
+              <td class="v{{ editCard.ticks['ka'] }}" colspan="2" ng-click="toggleBmcTick('ka', $event)"></td>
+              <td class="v{{ editCard.ticks['vp'] }}" colspan="2" ng-click="toggleBmcTick('vp', $event)" rowspan="2"></td>
+              <td class="v{{ editCard.ticks['cl'] }}" colspan="2" ng-click="toggleBmcTick('cl', $event)"></td>
+              <td class="v{{ editCard.ticks['cu'] }}" colspan="2" ng-click="toggleBmcTick('cu', $event)" rowspan="2"></td>
+            </tr>
+            <tr>
+              <td class="v{{ editCard.ticks['kr'] }}" colspan="2" ng-click="toggleBmcTick('kr', $event)"></td>
+              <td class="v{{ editCard.ticks['dc'] }}" colspan="2" ng-click="toggleBmcTick('dc', $event)"></td>
+            </tr>
+            <tr>
+              <td class="v{{ editCard.ticks['rs'] }}" colspan="5" ng-click="toggleBmcTick('rs', $event)"></td>
+              <td class="v{{ editCard.ticks['cs'] }}" colspan="5" ng-click="toggleBmcTick('cs', $event)"></td>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset data-role="fieldcontain">
+          <label for="addcard-name">
+            Card text
+          </label>
+          <input id="addcard-name" placeholder="Card text" ng-model="editCard.content" type="text" />
+        </fieldset>
+      </div>
+      <input value="Submit" type="submit" data-theme="b" ng-disabled="!editCard.content" />
+    </form>
+  </div>
+</div>

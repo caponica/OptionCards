@@ -23,7 +23,7 @@ function DeckAddCtrl($scope, $window) {
   $scope.addDeck = function() {
     if ($scope.addDeckName !== '') {
       var deckId = capOc.generateUuid();
-      capOc.decks[deckId] = { id: deckId, name: $scope.addDeckName }
+      capOc.decks[deckId] = { id: deckId, name: $scope.addDeckName, cards: [] }
       capOc.persistDecks();
       $scope.decks = capOc.loadDecks();
       $scope.addDeckName = '';
@@ -33,16 +33,10 @@ function DeckAddCtrl($scope, $window) {
   }
 }
 
-function DeckViewCtrl($scope, $window) {
-  $scope.deck = { id: 'abcdef', name: 'Sample deck', cards: [ 
-    new capOc.Card({id: 'abc', content: 'Bob can intro us to Acme Widgets Inc', ticks: { kp: capOc.TICK_YES, rs: capOc.TICK_YES }}) , 
-    new capOc.Card({id: 'def', content: 'Buy a shiny new car and let customers drive it around', ticks: { ka: capOc.TICK_MAYBE, kr: capOc.TICK_YES, vp: capOc.TICK_YES }}),
-    new capOc.Card({id: 'ghi', content: 'Launch tumblr site to appeal to lolcat fanz', ticks: { dc: capOc.TICK_MAYBE, cu: capOc.TICK_YES } }),
-    new capOc.Card({id: 'jkl', content: 'Get out of the building to meet some customers', ticks: { cu: capOc.TICK_YES } }),
-    new capOc.Card({id: 'mno', content: 'Jump on a bandwagon and drive around', ticks: { cl: capOc.TICK_MAYBE, rs: capOc.TICK_MAYBE } })
-  ] };
+function DeckViewCtrl($scope, $window, $routeParams) {
+  capOc.ng.loadDeckOr404($scope, $window, $routeParams.deckId);
 
-  console.log($scope.deck);
+//  console.log($scope.deck);
   $scope.filterString = null;
   $scope.filterBmc = { ticks: {}, showBigCanvas: false };
   $scope.filterBmc.ticks[capOc.SEGMENT_KEY_PARTNERS]      = capOc.TICK_EMPTY;
@@ -55,10 +49,6 @@ function DeckViewCtrl($scope, $window) {
   $scope.filterBmc.ticks[capOc.SEGMENT_COST_STRUCTURE]    = capOc.TICK_EMPTY;
   $scope.filterBmc.ticks[capOc.SEGMENT_REVENUE_STREAM]    = capOc.TICK_EMPTY;
   
-  $scope.addCard = function() {
-    $scope.deck.cards.push(new capOc.Card({content: 'An example card', ticks: { dc: capOc.TICK_MAYBE, rs: capOc.TICK_MAYBE } }));
-  }
-
   $scope.toggleBmcFilter = function() {
     $scope.filterBmc.showBigCanvas = !$scope.filterBmc.showBigCanvas;
     $('table.big-canvas').width(Math.min($('table.big-canvas').width(),360));
@@ -71,3 +61,21 @@ function DeckViewCtrl($scope, $window) {
     $event.stopPropagation();
   }
 }
+
+function CardAddCtrl($scope, $window, $routeParams) {
+  capOc.ng.loadDeckOr404($scope, $window, $routeParams.deckId);
+  $scope.editCard = new capOc.Card({ deckId: $scope.deck.id, content: '' });
+
+  $scope.addCard = function() {
+    $scope.deck.cards.push($scope.editCard);
+    capOc.persistDecks();
+  }
+
+  $scope.toggleBmcTick = function(i, $event) {
+    $scope.editCard.ticks[i] = ($scope.editCard.ticks[i] + 1 ) % 3;
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+}
+
+
