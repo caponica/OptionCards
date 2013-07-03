@@ -23,6 +23,8 @@ table.bmcanvas td.v1 { background-color: #cccccc; }
 table.bmcanvas td.v2 { background-color: #666666; }
 table.big-canvas.show-toggle-table-true ~ h3 { clear: left }
 
+table.big-canvas { width: 360px; height: 200px }
+
 .show-toggle-table-false { display: none; }
 .show-toggle-table-true { display: table; }
 .show-toggle-block-false { display: none; }
